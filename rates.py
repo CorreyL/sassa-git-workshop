@@ -111,3 +111,24 @@ class Rates:
                 f"Supported currencies include: "
                 f"{list(self.currency_to_series_id.keys())}"
             )
+
+    def get_rate(self, year, month, currency):
+        """
+        Returns the conversion rate to CAD for a given year, month and currency
+
+        Parameters:
+        year (int): The year of the desired currency rate
+        month (int): The month of the desired currency rate
+        currency (string): The desired currency to convert to CAD (supported
+          currencies will be stored in `self.currency_to_series_id`)
+
+        Returns:
+        float: The currency exchange rate based on the given year, month and
+        currency
+        """
+        self.check_valid_year(year)
+        self.check_valid_month(month)
+        self.check_valid_currency(currency)
+
+        series_id = self.currency_to_series_id[currency]
+        return self.observations[year][month][series_id]
