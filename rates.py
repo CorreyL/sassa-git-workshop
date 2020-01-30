@@ -61,3 +61,14 @@ class Rates:
                     continue
                 # Unimportant line, continue parsing the CSV
                 line_idx = line_idx + 1
+
+    def get_supported_currencies(self):
+        """
+        Returns a list of supported currencies, identified by their
+        internationally recognized three letter code (i.e. 'USD', 'AUD', 'SGD')
+
+        Returns:
+        list[string]: A list of strings that correspond to a list of supported
+        currencies
+        """
+        return list(self.currency_to_series_id.keys())
