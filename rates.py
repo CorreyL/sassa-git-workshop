@@ -84,3 +84,16 @@ class Rates:
             raise Exception(
                 f"Unsupported year: {year}\n"
                 f"Supported years include: {list(self.observations.keys())}"
+
+    def check_valid_month(self, month):
+        """
+        Checks if a given month is supported in this instance of the class
+
+        Raises:
+        Exception: If the inputted month is not supported
+        """
+        if month < 1 or month > 12:
+            raise Exception(
+                f"Invalid month: {month}\n"
+                f"Month must be a value between 1-12",
+            )
