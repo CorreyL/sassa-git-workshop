@@ -97,3 +97,17 @@ class Rates:
                 f"Invalid month: {month}\n"
                 f"Month must be a value between 1-12",
             )
+
+    def check_valid_currency(self, currency):
+        """
+        Checks if a given currency is supported in this instance of the class
+
+        Raises:
+        Exception: If the inputted currency is not supported
+        """
+        if currency not in self.get_supported_currencies():
+            raise Exception(
+                f"Unsupported currency: {currency}\n"
+                f"Supported currencies include: "
+                f"{list(self.currency_to_series_id.keys())}"
+            )
