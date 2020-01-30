@@ -72,3 +72,15 @@ class Rates:
         currencies
         """
         return list(self.currency_to_series_id.keys())
+
+    def check_valid_year(self, year):
+        """
+        Checks if a given year is supported in this instance of the class
+
+        Raises:
+        Exception: If the inputted year is not supported
+        """
+        if year not in self.observations:
+            raise Exception(
+                f"Unsupported year: {year}\n"
+                f"Supported years include: {list(self.observations.keys())}"
