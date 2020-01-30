@@ -10,6 +10,7 @@ class Rates:
         """
         self.currency_to_series_id = {}
         self.series = {}
+        self.observations = {}
         with open("FX_RATES_MONTHLY-sd-2017-01-01.csv") as csvfile:
             csv_contents = list(csv.reader(csvfile))
             line_idx = 0
@@ -34,6 +35,29 @@ class Rates:
                         line = csv_contents[line_idx]
                     # Once we are done parsing the SERIES data, continue parsing
                     # the rest of the CSV
+                    continue
+                if len(line) > 0 and line[0] == "OBSERVATIONS":
+                    # Store the list of column headers, allowing the logic to
+                    # use the index of a row to map back to the column the index
+                    # corresponds to
+                    column_headers = csv_contents[line_idx + 1]
+                    # Start at the first row of the OBSERVATIONS data
+                    line_idx = line_idx + 2
+                    line = csv_contents[line_idx]
+                    while len(line) > 0:
+                        date = line[0].split("-")
+                        year = int(date[0])
+                        month = int(date[1])
+                        self.observations.setdefault(year, {})[month] = {}
+                        for column_idx in range(1, len(line) - 1):
+                            id = column_headers[column_idx]
+                            self.observations[year][month][id] = line[
+                                column_idx
+                            ]
+                        line_idx = line_idx + 1
+                        line = csv_contents[line_idx]
+                    # Once we are done parsing the OBSERVATION data, continue
+                    # parsing the rest of the CSV
                     continue
                 # Unimportant line, continue parsing the CSV
                 line_idx = line_idx + 1
