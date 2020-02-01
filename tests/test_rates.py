@@ -92,3 +92,13 @@ class Test_Rates(TestCase):
             self.rates.observations[year] = {}
 
         assert self.rates.get_supported_years() == mock_supported_years
+
+    def test_get_supported_currencies(self):
+        mock_supported_currencies = ["AUD", "EUR", "JPY"]
+        self.rates.currency_to_series_id = {}
+        for currency in mock_supported_currencies:
+            self.rates.currency_to_series_id[currency] = {}
+
+        assert (
+            self.rates.get_supported_currencies() == mock_supported_currencies
+        )
