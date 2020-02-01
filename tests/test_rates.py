@@ -148,3 +148,35 @@ class Test_Rates(TestCase):
             f"Invalid month: {inputted_month}\n"
             f"Month must be a value between 1-12"
         )
+
+    @mock.patch("rates.Rates.get_supported_currencies")
+    def test_check_valid_currency_input_valid_currency(
+        self, get_supported_currencies,
+    ):
+        inputted_currency = "AUD"
+        get_supported_currencies.return_value = [inputted_currency]
+        captured_error = None
+        try:
+            self.rates.check_valid_currency(inputted_currency)
+        except Exception as err:
+            captured_error = err
+        get_supported_currencies.assert_called_once()
+        assert captured_error == None
+
+    @mock.patch("rates.Rates.get_supported_currencies")
+    def test_check_valid_currency_input_invalid_currency(
+        self, get_supported_currencies,
+    ):
+        inputted_currency = "JPY"
+        get_supported_currencies.return_value = ["AUD"]
+        captured_error = None
+        try:
+            self.rates.check_valid_currency(inputted_currency)
+        except Exception as err:
+            captured_error = err
+        get_supported_currencies.assert_called_once()
+        assert str(captured_error) == (
+            f"Unsupported currency: {inputted_currency}\n"
+            f"Supported currencies include: "
+            f"{get_supported_currencies.return_value}"
+        )
