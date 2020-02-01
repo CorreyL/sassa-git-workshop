@@ -16,3 +16,21 @@ class Test_Rates_Init(TestCase):
         assert self.rates.series == {}
         assert self.rates.observations == {}
         parse_csv.assert_called_once()
+
+
+class Test_Rates(TestCase):
+    def setUp(self):
+        """
+        Ensures that `utils.pog_converter.PogConverter.__init__` is not executed
+        when
+
+        `from rates import Rates`
+
+        Occurs, which would erroneously report that `rates.Rates.__init__` has
+        been covered when just running pytest on `test_rates.py`
+        """
+        with mock.patch("rates.Rates.__init__") as RatesInit:
+            RatesInit.return_value = None
+            from rates import Rates
+
+            self.rates = Rates()
