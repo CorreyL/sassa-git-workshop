@@ -128,3 +128,23 @@ class Test_Rates(TestCase):
             f"Unsupported year: {inputted_year}\n"
             f"Supported years include: {get_supported_years.return_value}"
         )
+
+    def test_check_valid_month_input_valid_month(self):
+        captured_error = None
+        try:
+            self.rates.check_valid_month(1)
+        except Exception as err:
+            captured_error = err
+        assert captured_error == None
+
+    def test_check_valid_month_input_invalid_month(self):
+        captured_error = None
+        inputted_month = 0
+        try:
+            self.rates.check_valid_month(inputted_month)
+        except Exception as err:
+            captured_error = err
+        assert str(captured_error) == (
+            f"Invalid month: {inputted_month}\n"
+            f"Month must be a value between 1-12"
+        )
