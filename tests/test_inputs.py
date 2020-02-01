@@ -56,3 +56,58 @@ def test_get_year_input_invalid_input(
         str(captured_error_message)
         == "Number of tries exceeded. Exitting program."
     )
+
+@mock.patch("builtins.input")
+@mock.patch("builtins.print")
+@mock.patch("rates.Rates.check_valid_month")
+def test_get_month_input_valid_input(
+    check_valid_month, builtins_print, builtins_input,
+):
+    builtins_input.return_value = 1
+    rates = mock.MagicMock
+    rates.check_valid_month = check_valid_month
+    captured_return = get_month_input(rates)
+    builtins_print.assert_called_once_with(
+        "What month would you like to get your currency rate from?\n"
+        f"Supported months include: {list(range(1, 13))}"
+    )
+    check_valid_month.assert_called_once_with(builtins_input.return_value)
+    assert captured_return == builtins_input.return_value
+
+
+@mock.patch("builtins.input")
+@mock.patch("builtins.print")
+@mock.patch("rates.Rates.check_valid_month")
+def test_get_month_input_invalid_input(
+    check_valid_month, builtins_print, builtins_input,
+):
+    builtins_input.return_value = 1
+    rates = mock.MagicMock
+    rates.check_valid_month = check_valid_month
+    error_message = "errmsg"
+    check_valid_month.side_effect = Exception(error_message)
+    captured_error_message = None
+    try:
+        get_month_input(rates)
+    except Exception as err:
+        captured_error_message = err
+    builtins_print.assert_has_calls(
+        [
+            mock.call(
+                "What month would you like to get your currency rate from?\n"
+                f"Supported months include: {list(range(1, 13))}"
+            ),
+            mock.call(f"{error_message}\n"),
+        ],
+    )
+    check_valid_month.assert_has_calls(
+        [
+            mock.call(builtins_input.return_value),
+            mock.call(builtins_input.return_value),
+            mock.call(builtins_input.return_value),
+        ]
+    )
+    assert (
+        str(captured_error_message)
+        == "Number of tries exceeded. Exitting program."
+    )
