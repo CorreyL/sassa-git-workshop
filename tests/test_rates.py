@@ -102,3 +102,29 @@ class Test_Rates(TestCase):
         assert (
             self.rates.get_supported_currencies() == mock_supported_currencies
         )
+
+    @mock.patch("rates.Rates.get_supported_years")
+    def test_check_valid_year_input_valid_year(self, get_supported_years):
+        captured_error = None
+        get_supported_years.return_value = [2017, 2018, 2019]
+        try:
+            self.rates.check_valid_year(get_supported_years.return_value[0])
+        except Exception as err:
+            captured_error = err
+        get_supported_years.assert_called_once()
+        assert captured_error == None
+
+    @mock.patch("rates.Rates.get_supported_years")
+    def test_check_valid_year_input_invalid_year(self, get_supported_years):
+        get_supported_years.return_value = [2017, 2018, 2019]
+        inputted_year = 2016
+        captured_error = None
+        try:
+            self.rates.check_valid_year(inputted_year)
+        except Exception as err:
+            captured_error = err
+        get_supported_years.assert_called_once()
+        assert str(captured_error) == (
+            f"Unsupported year: {inputted_year}\n"
+            f"Supported years include: {get_supported_years.return_value}"
+        )
