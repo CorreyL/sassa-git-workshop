@@ -22,12 +22,4 @@ def get_args():
         default=None,
     )
 
-    parser.add_argument(
-        "-c",
-        "--currency",
-        help="The three letter currency code (eg. AUD, BRL, JPY)",
-        type=str,
-        default=None,
-    )
-
     return parser.parse_args()
