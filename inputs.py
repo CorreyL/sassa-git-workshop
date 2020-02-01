@@ -15,3 +15,20 @@ def get_year_input(rates):
             tries = tries + 1
             print(f"{err}\n")
     raise Exception("Number of tries exceeded. Exitting program.")
+
+
+def get_month_input(rates):
+    tries = 0
+    while tries < max_tries:
+        print(
+            f"What month would you like to get your currency rate from?\n"
+            f"Supported months include: {list(range(1, 13))}"
+        )
+        month = input()
+        try:
+            rates.check_valid_month(int(month))
+            return int(month)
+        except Exception as err:
+            tries = tries + 1
+            print(f"{err}\n")
+    raise Exception("Number of tries exceeded. Exitting program.")
