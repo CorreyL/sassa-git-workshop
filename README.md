@@ -3,6 +3,16 @@
 This repository houses the codebase used for the SASSA Git Workshop hosted on
 February 3rd 2020.
 
+---
+
+### Table of Contents
+
+* [Black](#Black)
+* [Setting Up Your Virtual Environment](#Setting-Up-Your-Virtual-Environment)
+* [Usage](#Usage)
+* [Running Tests](#Running-Tests)
+
+
 # Black
 
 This codebase uses [`black`](https://black.readthedocs.io/en/stable/) as a
