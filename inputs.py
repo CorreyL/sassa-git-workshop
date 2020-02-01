@@ -32,3 +32,21 @@ def get_month_input(rates):
             tries = tries + 1
             print(f"{err}\n")
     raise Exception("Number of tries exceeded. Exitting program.")
+
+
+def get_currency_input(rates):
+    tries = 0
+    currency = None
+    while tries < max_tries:
+        print(
+            f"What currency do you want to convert to CAD?\n"
+            f"Supported currencies include: {rates.get_supported_currencies()}"
+        )
+        currency = input()
+        try:
+            rates.check_valid_currency(currency)
+            return currency
+        except Exception as err:
+            tries = tries + 1
+            print(f"{err}\n")
+    raise Exception("Number of tries exceeded. Exitting program.")
