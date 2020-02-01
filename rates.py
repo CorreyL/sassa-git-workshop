@@ -65,6 +65,13 @@ class Rates:
                 # Unimportant line, continue parsing the CSV
                 line_idx = line_idx + 1
 
+    def get_supported_years(self):
+        """
+        Returns the list of supported years based on the keys of
+        `self.observations`
+        """
+        return list(self.observations.keys())
+
     def get_supported_currencies(self):
         """
         Returns a list of supported currencies, identified by their
@@ -83,10 +90,12 @@ class Rates:
         Raises:
         Exception: If the inputted year is not supported
         """
-        if year not in self.observations:
+        supported_years = self.get_supported_years()
+        if year not in supported_years:
             raise Exception(
                 f"Unsupported year: {year}\n"
-                f"Supported years include: {list(self.observations.keys())}"
+                f"Supported years include: {supported_years}"
+            )
 
     def check_valid_month(self, month):
         """
