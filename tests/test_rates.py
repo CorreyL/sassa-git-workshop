@@ -34,3 +34,53 @@ class Test_Rates(TestCase):
             from rates import Rates
 
             self.rates = Rates()
+
+    @mock.patch("csv.reader")
+    @mock.patch("builtins.open", new_callable=mock.mock_open, read_data="data")
+    def test_parse_csv(self, mock_open, csv_reader):
+        mock_csv_contents = [
+            ["STUFF"],
+            [],
+            [],
+            ["THAT"],
+            [],
+            ["SHOULD BE IGNORED"],
+            [],
+            [],
+            ["SERIES"],
+            ["id", "label", "description"],
+            ["somefakeid", "AUD/CAD", "AUD to CAD"],
+            ["anotherfakeid", "JPY/CAD", "JPY to CAD"],
+            ["onemorefakeid", "EUR/CAD", "EUR to CAD"],
+            [],
+            ["OBSERVATIONS"],
+            ["date", "somefakeid", "anotherfakeid", "onemorefakeid"],
+            ["2017-01-01", 1.00, 0.50, 0.25],
+            ["2018-01-01", 0.50, 0.25, 0.125],
+            ["2019-01-01", 0.75, 0.33, 0.15],
+            [],
+        ]
+        real_csv_filename = "FX_RATES_MONTHLY-sd-2017-01-01.csv"
+        csv_reader.return_value = mock_csv_contents
+        self.rates.currency_to_series_id = {}
+        self.rates.series = {}
+        self.rates.observations = {}
+        self.rates.parse_csv()
+
+        mock_open.assert_called_once_with(real_csv_filename)
+        csv_reader.assert_called_once_with(mock_open.return_value)
+        assert self.rates.series == {
+            "somefakeid": {"label": "AUD/CAD", "description": "AUD to CAD"},
+            "anotherfakeid": {"label": "JPY/CAD", "description": "JPY to CAD"},
+            "onemorefakeid": {"label": "EUR/CAD", "description": "EUR to CAD",},
+        }
+        assert self.rates.currency_to_series_id == {
+            "AUD": "somefakeid",
+            "JPY": "anotherfakeid",
+            "EUR": "onemorefakeid",
+        }
+        assert self.rates.observations == {
+            2017: {1: {"somefakeid": 1.0, "anotherfakeid": 0.5}},
+            2018: {1: {"somefakeid": 0.5, "anotherfakeid": 0.25}},
+            2019: {1: {"somefakeid": 0.75, "anotherfakeid": 0.33}},
+        }
