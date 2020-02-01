@@ -26,3 +26,15 @@ python -m venv venv
 venv\Scripts\activate.bat
 pip install -r requirements.txt
 ```
+
+# Running Tests
+
+## Linux
+```sh
+py.test --cov=. --cov-report=term-missing tests/test_*.py
+```
+
+## Windows
+```sh
+py.test --cov=. --cov-report=term-missing tests\.
+```
