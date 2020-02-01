@@ -34,6 +34,35 @@ venv\Scripts\activate.bat
 pip install -r requirements.txt
 ```
 
+# Usage
+
+To run the program:
+
+```sh
+# Provide one or more arguments via the command line
+python main.py -y 2017 -m 1 -c AUD
+# Or follow the program's prompts
+python main.py
+```
+
+The `-h`/`--help` output is also available:
+
+```sh
+$ python main.py -h
+usage: main.py [-h] [-y YEAR] [-m MONTH] [-c CURRENCY]
+
+Historical Currency Converter
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -y YEAR, --year YEAR  The year in which you are interested in the currency
+                        rate
+  -m MONTH, --month MONTH
+                        The month in which you are interested in the currency
+                        rate (1-12)
+  -c CURRENCY, --currency CURRENCY
+```
+
 # Running Tests
 
 ## Linux
