@@ -57,6 +57,7 @@ def test_get_year_input_invalid_input(
         == "Number of tries exceeded. Exitting program."
     )
 
+
 @mock.patch("builtins.input")
 @mock.patch("builtins.print")
 @mock.patch("rates.Rates.check_valid_month")
