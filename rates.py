@@ -117,11 +117,12 @@ class Rates:
         Raises:
         Exception: If the inputted currency is not supported
         """
-        if currency not in self.get_supported_currencies():
+        supported_currencies = self.get_supported_currencies()
+        if currency not in supported_currencies:
             raise Exception(
                 f"Unsupported currency: {currency}\n"
                 f"Supported currencies include: "
-                f"{list(self.currency_to_series_id.keys())}"
+                f"{supported_currencies}"
             )
 
     def get_rate(self, year, month, currency):
