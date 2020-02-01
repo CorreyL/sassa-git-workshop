@@ -180,3 +180,31 @@ class Test_Rates(TestCase):
             f"Supported currencies include: "
             f"{get_supported_currencies.return_value}"
         )
+
+    @mock.patch("rates.Rates.check_valid_year")
+    @mock.patch("rates.Rates.check_valid_month")
+    @mock.patch("rates.Rates.check_valid_currency")
+    def test_get_rate(
+        self, check_valid_currency, check_valid_month, check_valid_year,
+    ):
+        year = 2017
+        month = 1
+        currency = "AUD"
+        series_id = "somefakeid"
+        mock_rate = 1.00
+
+        self.rates.currency_to_series_id = {
+            currency: series_id,
+        }
+        self.rates.observations = {year: {month: {series_id: mock_rate}}}
+
+        returned_rate = self.rates.get_rate(year, month, currency)
+
+        check_valid_currency.assert_called_once()
+        check_valid_month.assert_called_once()
+        check_valid_year.assert_called_once()
+
+        assert (
+            returned_rate == self.rates.observations[year][month][series_id]
+            and returned_rate == mock_rate
+        )
