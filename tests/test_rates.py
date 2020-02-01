@@ -84,3 +84,11 @@ class Test_Rates(TestCase):
             2018: {1: {"somefakeid": 0.5, "anotherfakeid": 0.25}},
             2019: {1: {"somefakeid": 0.75, "anotherfakeid": 0.33}},
         }
+
+    def test_get_supported_years(self):
+        mock_supported_years = [2017, 2018, 2019]
+        self.rates.observations = {}
+        for year in mock_supported_years:
+            self.rates.observations[year] = {}
+
+        assert self.rates.get_supported_years() == mock_supported_years
