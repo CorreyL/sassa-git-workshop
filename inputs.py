@@ -1,5 +1,6 @@
 max_tries = 3
 
+
 def get_year_input(rates):
     tries = 0
     while tries < max_tries:
