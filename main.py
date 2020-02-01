@@ -8,7 +8,6 @@ rates = Rates()
 
 def main():
     print("Welcome to the Historical Rate Calculator")
-    year = args.year if args.year else get_year_input(rates)
     month = args.month if args.month else get_month_input(rates)
     currency = args.currency if args.currency else get_currency_input(rates)
     conversion_rate = rates.get_rate(year, month, currency)
