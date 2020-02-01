@@ -8,6 +8,13 @@ February 3rd 2020.
 This codebase uses [`black`](https://black.readthedocs.io/en/stable/) as a
 formatter to ensure code consistency.
 
+Please ensure the following command is executed before commiting any code:
+
+```sh
+# -l 80 enforces a 80 character-per-line limit
+black my_script.py -l 80
+```
+
 # Setting Up Your Virtual Environment
 
 ## Linux
