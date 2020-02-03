@@ -33,7 +33,7 @@ black my_script.py -l 80
 
 # Setting Up Your Virtual Environment
 
-## Linux
+## Linux/Mac
 
 ```sh
 python -m venv venv
@@ -81,7 +81,7 @@ optional arguments:
 
 # Running Tests
 
-## Linux
+## Linux/Mac
 ```sh
 py.test --cov=. --cov-report=term-missing tests/test_*.py
 ```
