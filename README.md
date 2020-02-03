@@ -71,6 +71,7 @@ optional arguments:
                         The month in which you are interested in the currency
                         rate (1-12)
   -c CURRENCY, --currency CURRENCY
+                        The three letter currency code (eg. AUD, BRL, JPY)
 ```
 
 # Running Tests
