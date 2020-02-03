@@ -7,11 +7,17 @@ February 3rd 2020.
 
 ### Table of Contents
 
+* [Requirements](#Requirements)
 * [Black](#Black)
 * [Setting Up Your Virtual Environment](#Setting-Up-Your-Virtual-Environment)
 * [Usage](#Usage)
 * [Running Tests](#Running-Tests)
 
+# Requirements
+
+This codebase requires either `Python 3.7.x` or `Python 3.8.x`
+
+Other versions of Python 3 may work, but I can only guarantee compatibility with `Python 3.7.x` and `Python 3.8.x`.
 
 # Black
 
