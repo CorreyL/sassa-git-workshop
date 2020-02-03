@@ -3,6 +3,8 @@
 This repository houses the codebase used for the SASSA Git Workshop hosted on
 February 3rd 2020.
 
+https://docs.google.com/presentation/d/12HXtPa7J9zP9WCuuaAtMWnwGA5lOy1P_5OzZQrN8Qvk/edit?usp=sharing
+
 ---
 
 ### Table of Contents
